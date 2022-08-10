@@ -45,6 +45,7 @@ export function addTransformItem(id, transformItem: TransformItem): void {
       totalTime: 0,
     };
   }
+
   loaderInfoMap[loaderName].invokeCount++;
 
   if (hasExistedLoader) {
