@@ -1,0 +1,27 @@
+{
+  "name": "@modern-js/build-tool-inspector",
+  "version": "1.0.0-alpha.0",
+  "description": "Inspector for webpack",
+  "main": "index.js",
+  "scripts": {
+    "build": "pnpm run build -r",
+    "changeset": "changeset",
+    "version": "changeset version",
+    "publish": "pnpm publish --filter '*plugin*'",
+    "test": "pnpm run test --filter '*plugin*'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/modern-js-dev/build-tool-inspector.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/modern-js-dev/build-tool-inspector/issues"
+  },
+  "homepage": "https://github.com/modern-js-dev/build-tool-inspector#readme",
+  "devDependencies": {
+    "@changesets/cli": "^2.24.2"
+  }
+}
