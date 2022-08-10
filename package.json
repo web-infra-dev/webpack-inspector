@@ -7,8 +7,8 @@
     "build": "pnpm run build -r",
     "changeset": "changeset",
     "version": "changeset version",
-    "publish": "pnpm publish --filter '*plugin*'",
-    "test": "pnpm run test --filter '*plugin*'"
+    "test": "pnpm run test --filter '*plugin*'",
+    "publish": "pnpm publish --filter '*plugin*' --no-git-checks --access=public"
   },
   "repository": {
     "type": "git",

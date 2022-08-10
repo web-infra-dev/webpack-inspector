@@ -6,7 +6,6 @@
   "scripts": {
     "dev": "ttsc -w",
     "build": "rm -rf dist tsconfig.tsbuildinfo && ttsc",
-    "prepublishOnly": "npm run build:plugin",
     "test": "jest"
   },
   "keywords": [
