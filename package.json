@@ -14,14 +14,49 @@
     "type": "git",
     "url": "git+https://github.com/modern-js-dev/build-tool-inspector.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "eslintIgnore": [
+    "node_modules/",
+    "dist/",
+    "client/"
+  ],
+  "eslintConfig": {
+    "extends": [
+      "@modern-js"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "node --max_old_space_size=8192 ./node_modules/eslint/bin/eslint.js --fix --color --cache --quiet",
+      "git add"
+    ],
+    "*.{js,jsx,mjs,mjsx,cjs,cjsx}": [
+      "node --max_old_space_size=8192 ./node_modules/eslint/bin/eslint.js --fix --color --cache --quiet",
+      "git add"
+    ]
+  },
+  "keywords": [
+    "webpack",
+    "build",
+    "inspector"
+  ],
+  "author": "yangxingyuan",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/modern-js-dev/build-tool-inspector/issues"
   },
   "homepage": "https://github.com/modern-js-dev/build-tool-inspector#readme",
   "devDependencies": {
-    "@changesets/cli": "^2.24.2"
+    "@changesets/cli": "^2.24.2",
+    "@commitlint/cli": "^17.0.3",
+    "@commitlint/config-conventional": "^17.0.3",
+    "@modern-js/eslint-config": "^1.2.6",
+    "eslint": "^8.18.0",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3"
   }
 }

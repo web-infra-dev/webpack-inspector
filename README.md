@@ -14,7 +14,7 @@ Webpack dev tools to make performance analysis, error investigation and loader d
 
 ![devtool-3.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a617af7a430d4100ab177bb2da614b1c~tplv-k3u1fbpfcp-watermark.image?)
 
-3. Module dependency graph structure visualization.
+3. Module dependency graph structure visualization.(Think of performance, the function will be closed when the number of modules is greater than 100)
 
 ![devtool-4.png](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/52c85f669cf843d1901868363cf04843~tplv-k3u1fbpfcp-watermark.image?)
 
