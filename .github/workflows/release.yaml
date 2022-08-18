@@ -40,6 +40,9 @@ jobs:
       - name: Build Package
         run: pnpm run build
 
+      - name: Test Package
+        run: pnpm run test
+
       - name: Publish versions
         run: pnpm run publish
         env:

@@ -5,7 +5,7 @@ import {
   Compilation,
   RuleSetRule,
   NormalModule,
-  WebpackOptionsNormalized
+  WebpackOptionsNormalized,
 } from 'webpack';
 import { loaderInfoMap, moduleInfoMap, moduleTransformInfoMap } from './loader';
 import { hookNormalModuleLoader, isCI, NAME, prependLoader } from './utils';
@@ -31,7 +31,10 @@ export class InspectorWebpackPlugin implements WebpackPluginInstance {
     this.ignorePattern = options.ignorePattern || null;
   }
 
-  recordModuleDependencies(moduleInfo: NormalModule, compilation: Compilation): void {
+  recordModuleDependencies(
+    moduleInfo: NormalModule,
+    compilation: Compilation,
+  ): void {
     if (!moduleInfo || !moduleInfo.resource) {
       return;
     }
@@ -56,7 +59,10 @@ export class InspectorWebpackPlugin implements WebpackPluginInstance {
     if (!moduleTransformInfoMap[id]) {
       let fileContent;
       try {
-        fileContent = readFileSync(moduleInfo.resourceResolveData.path, 'utf-8');
+        fileContent = readFileSync(
+          moduleInfo.resourceResolveData.path,
+          'utf-8',
+        );
       } catch (e) {
         fileContent = 'Cannot read the content of module.';
       }
@@ -72,7 +78,16 @@ export class InspectorWebpackPlugin implements WebpackPluginInstance {
 
     const { dependencies } = moduleInfo;
     dependencies.forEach(dep => {
-      const depModule = compilation.moduleGraph.getModule(dep) as NormalModule;
+      let depModule;
+      if (compilation.moduleGraph) {
+        depModule = compilation.moduleGraph.getModule(dep) as NormalModule;
+      } else {
+        // @ts-ignore Compat webpack4
+        depModule = compilation.getDependencyReference(moduleInfo, dep);
+        if (depModule) {
+          depModule = depModule.module;
+        }
+      }
 
       if (
         depModule &&
@@ -91,7 +106,9 @@ export class InspectorWebpackPlugin implements WebpackPluginInstance {
       return;
     }
     compiler.hooks.environment.tap(INSPECT_PLUGIN, () => {
-      compiler.options.module.rules = prependLoader(compiler.options.module.rules) as (RuleSetRule | '...')[];
+      compiler.options.module.rules = prependLoader(
+        compiler.options.module.rules,
+      ) as (RuleSetRule | '...')[];
       compiler.options.cache = false;
       this.config = compiler.options;
     });
@@ -101,11 +118,14 @@ export class InspectorWebpackPlugin implements WebpackPluginInstance {
         // @ts-ignore Hang ignorePattern on loader context, so we can exclude some module by the pattern.
         loaderContext.ignorePattern = this.ignorePattern;
       });
-      compilation.hooks.moduleIds.tap(INSPECT_PLUGIN, (modules: NormalModule[]) => {
-        for (const moduleInfo of modules) {
-          this.recordModuleDependencies(moduleInfo, compilation);
-        }
-      });
+      compilation.hooks.moduleIds.tap(
+        INSPECT_PLUGIN,
+        (modules: NormalModule[]) => {
+          for (const moduleInfo of modules) {
+            this.recordModuleDependencies(moduleInfo, compilation);
+          }
+        },
+      );
     });
 
     compiler.hooks.done.tapPromise(NAME, async () => {
@@ -123,7 +143,7 @@ export class InspectorWebpackPlugin implements WebpackPluginInstance {
       });
       this._hasServerOpened = true;
       server.listen(this.port, () => {
-        const banner = blue(bold(('【Webpack Inspector】')));
+        const banner = blue(bold('【Webpack Inspector】'));
         console.log(`${banner}🔥 started at http://localhost:${this.port}`);
       });
     });

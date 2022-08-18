@@ -1,0 +1,19 @@
+{
+  "name": "webpack5-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "ts-loader": "5",
+    "typescript": "3",
+    "typescript-require": "^0.3.0",
+    "webpack": "4",
+    "webpack-cli": "^4.10.0"
+  }
+}

@@ -1,6 +1,7 @@
 import { join } from 'path';
 import { extractLoaderName, wrapLoaderRequire } from '../utils';
 import Module from 'module';
+import { describe, test, expect, vi } from 'vitest';
 
 describe('loader path function', () => {
   test('extract loader name', () => {
@@ -24,7 +25,7 @@ describe('loader path function', () => {
 
   test('intercept require', () => {
     const testFilePath = join(__dirname, './test.js');
-    const mockFn = jest.fn();
+    const mockFn = vi.fn();
     wrapLoaderRequire([testFilePath], (requireResult, loaderRealPath) => {
       mockFn();
       return requireResult;

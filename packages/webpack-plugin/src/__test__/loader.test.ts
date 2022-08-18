@@ -1,5 +1,11 @@
-import { addTransformItem, loaderInfoMap, moduleInfoMap, moduleRawContentMap, moduleTransformInfoMap } from '@/loader';
-
+import {
+  addTransformItem,
+  loaderInfoMap,
+  moduleInfoMap,
+  moduleRawContentMap,
+  moduleTransformInfoMap,
+} from '@/loader';
+import { describe, test, expect } from 'vitest';
 describe('test loader internal logic', () => {
   // mock module `a`
   moduleRawContentMap.a = 'content';

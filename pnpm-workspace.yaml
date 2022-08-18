@@ -1,5 +1,6 @@
 packages:
   - "packages/*"
+  - "!playground/*"
 link-workspace-packages: true
 shared-workspace-lockfile: true
 save-workspace-protocol: false
