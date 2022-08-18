@@ -7,6 +7,7 @@ import IconsResolver from 'unplugin-icons/resolver';
 import Components from 'unplugin-vue-components/vite';
 import AutoImport from 'unplugin-auto-import/vite';
 import Unocss from 'unocss/vite';
+import monoco from 'vite-plugin-monaco-editor';
 
 export default defineConfig({
   resolve: {
@@ -16,6 +17,7 @@ export default defineConfig({
   },
 
   plugins: [
+    monoco({}),
     Vue(),
     Pages({
       pagesDir: 'src/pages',

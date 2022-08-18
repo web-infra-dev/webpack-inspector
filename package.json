@@ -7,7 +7,7 @@
     "build": "pnpm run build -r",
     "changeset": "changeset",
     "version": "changeset version",
-    "test": "pnpm run test --filter '*plugin*'",
+    "test": "pnpm run test --filter '*webpack-plugin*'",
     "publish": "pnpm publish --filter '*plugin*' --no-git-checks --access=public"
   },
   "repository": {

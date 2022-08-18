@@ -58,7 +58,7 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[vue]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "Vue.volar"
   },
   "eslint.alwaysShowStatus": true,
   "eslint.run": "onType",

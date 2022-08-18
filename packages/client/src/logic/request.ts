@@ -1,5 +1,5 @@
 export const BASE_URL =
-  process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3334';
+  process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3335';
 
 export async function getModuleList() {
   const res = await fetch(`${BASE_URL}/module-list`);
