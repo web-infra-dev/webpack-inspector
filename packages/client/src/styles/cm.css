@@ -1,5 +1,3 @@
-@import 'codemirror-theme-vars/base.css';
-
 :root {
   --cm-font-family: 'Input Mono', 'FiraCode', monospace;
 }
