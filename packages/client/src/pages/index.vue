@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { listMode, refetch, searchResults, toggleMode } from '../logic';
+import { listMode, refetch, searchResults, toggleMode } from "../logic";
 
 const route = useRoute();
-const isRoot = computed(() => route.path === '/');
+const isRoot = computed(() => route.path === "/");
 onMounted(() => {
   refetch();
 });
@@ -14,17 +14,10 @@ onMounted(() => {
 
     <SearchBox />
     <div class="flex-auto" />
-    <router-link
-      class="icon-btn text-lg"
-      to="/plugins-metric"
-    >
+    <router-link class="icon-btn text-lg" to="/plugins-metric">
       <carbon:timer />
     </router-link>
-    <button
-      class="icon-btn text-lg"
-      title="View Mode"
-      @click="toggleMode()"
-    >
+    <button class="icon-btn text-lg" title="View Mode" @click="toggleMode()">
       <carbon:list-boxes v-if="listMode === 'detailed'" />
       <carbon:network-4 v-else-if="listMode === 'graph'" />
       <carbon:calendar-settings v-else-if="listMode === 'config'" />
@@ -38,14 +31,8 @@ onMounted(() => {
   </NavBar>
   <Container class="overflow-auto">
     <KeepAlive>
-      <Graph
-        v-if="listMode === 'graph'"
-        :modules="searchResults"
-      />
-      <ModuleList
-        v-else-if="listMode === 'detailed'"
-        :modules="searchResults"
-      />
+      <Graph v-if="listMode === 'graph'" :modules="searchResults" />
+      <ModuleList v-else-if="listMode === 'detailed'" :modules="searchResults" />
       <RawConfig v-else-if="listMode === 'config'" />
     </KeepAlive>
   </Container>
@@ -53,10 +40,7 @@ onMounted(() => {
     class="fixed left-0 top-0 right-0 bottom-0 transition-all flex overflow-hidden bg-black/50"
     :class="isRoot ? 'pointer-events-none opacity-0' : 'opacity-100'"
   >
-    <router-link
-      class="min-w-70px h-full flex-auto"
-      to="/"
-    />
+    <router-link class="min-w-70px h-full flex-auto" to="/" />
     <div
       class="bg-white dark:bg-[#111] border-main border-l h-full overflow-hidden shadow-lg transition-transform transform duration-300"
       :class="isRoot ? 'translate-x-1/2' : 'translate-x-0'"
@@ -67,9 +51,7 @@ onMounted(() => {
             <component :is="Component" />
           </keep-alive>
         </router-view>
-        <template #fallback>
-          Loading...
-        </template>
+        <template #fallback> Loading... </template>
       </Suspense>
     </div>
   </div>

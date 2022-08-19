@@ -4,6 +4,7 @@ import { ServerDataSource } from './types';
 import cors from '@koa/cors';
 import serve from 'koa-static';
 import { join } from 'path';
+import { readFile } from 'fs-extra';
 
 export function createServer(data: ServerDataSource): Koa {
   const { moduleList, moduleTransformInfoMap, loaderInfoList, config } = data;
@@ -42,13 +43,22 @@ export function createServer(data: ServerDataSource): Koa {
         }
         return v;
       },
-      2
+      2,
     );
   });
 
   app.use(cors());
   app.use(serve(join(__dirname, '../client')));
   app.use(router.routes()).use(router.allowedMethods());
-
+  app.use(async (ctx, next) => {
+    await next();
+    if (ctx.status === 404) {
+      ctx.type = 'html';
+      ctx.body = await readFile(
+        join(__dirname, '../client/index.html'),
+        'utf-8',
+      );
+    }
+  });
   return app;
 }
