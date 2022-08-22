@@ -24,8 +24,7 @@ interface PluginOptions {
 export class InspectorWebpackPlugin implements WebpackPluginInstance {
   port: number;
   ignorePattern: RegExp | null;
-  config: WebpackOptionsNormalized;
-  private _hasServerOpened = false;
+  #hasServerOpened = false;
   constructor(options: PluginOptions = {}) {
     this.port = options.port || DEFAULT_PROT;
     this.ignorePattern = options.ignorePattern || null;
@@ -101,6 +100,7 @@ export class InspectorWebpackPlugin implements WebpackPluginInstance {
   }
 
   apply(compiler: Compiler): void {
+    let webpackConfig: WebpackOptionsNormalized;
     // skip in ci build
     if (isCI()) {
       return;
@@ -110,7 +110,7 @@ export class InspectorWebpackPlugin implements WebpackPluginInstance {
         compiler.options.module.rules,
       ) as (RuleSetRule | '...')[];
       compiler.options.cache = false;
-      this.config = compiler.options;
+      webpackConfig = compiler.options;
     });
 
     compiler.hooks.compilation.tap(NAME, (compilation: Compilation): void => {
@@ -127,9 +127,9 @@ export class InspectorWebpackPlugin implements WebpackPluginInstance {
         },
       );
     });
-
     compiler.hooks.done.tapPromise(NAME, async () => {
-      if (this._hasServerOpened) {
+      // @ts-ignore
+      if (this.#hasServerOpened) {
         return;
       }
       const server = createServer({
@@ -139,9 +139,9 @@ export class InspectorWebpackPlugin implements WebpackPluginInstance {
           modules: Object.values(moduleInfoMap),
         },
         moduleTransformInfoMap,
-        config: this.config,
+        config: webpackConfig,
       });
-      this._hasServerOpened = true;
+      this.#hasServerOpened = true;
       server.listen(this.port, () => {
         const banner = blue(bold('【Webpack Inspector】'));
         console.log(`${banner}🔥 started at http://localhost:${this.port}`);

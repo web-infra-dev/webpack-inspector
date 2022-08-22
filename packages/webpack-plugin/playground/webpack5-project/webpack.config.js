@@ -1,5 +1,4 @@
 const { InspectorWebpackPlugin } = require('../../dist/index.js');
-
 /**
  * @type {import('webpack').Configuration}
  */

@@ -10,9 +10,6 @@ export function createServer(data: ServerDataSource): Koa {
   const { moduleList, moduleTransformInfoMap, loaderInfoList, config } = data;
   const app = new Koa();
   const router = new Router();
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  config.plugins = config.plugins.map(p => p.constructor.name);
 
   router.get('/module-list', async (ctx, next) => {
     await next();
@@ -32,12 +29,16 @@ export function createServer(data: ServerDataSource): Koa {
     await next();
     ctx.body = loaderInfoList;
   });
-
+  // @ts-ignore Insert plugin name to config
+  config.plugins = config.plugins.map(plugin => ({
+    ...plugin,
+    __pluginName: plugin.constructor.name,
+  }));
   router.get('/config', async (ctx, next) => {
     await next();
     ctx.body = JSON.stringify(
       config,
-      (_, v) => {
+      (k, v) => {
         if (typeof v === 'function' || v instanceof RegExp) {
           return v.toString();
         }
