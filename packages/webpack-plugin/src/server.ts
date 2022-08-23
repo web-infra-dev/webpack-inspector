@@ -29,23 +29,16 @@ export function createServer(data: ServerDataSource): Koa {
     await next();
     ctx.body = loaderInfoList;
   });
-  // @ts-ignore Insert plugin name to config
-  config.plugins = config.plugins.map(plugin => ({
-    ...plugin,
-    __pluginName: plugin.constructor.name,
-  }));
+
   router.get('/config', async (ctx, next) => {
     await next();
-    ctx.body = JSON.stringify(
-      config,
-      (k, v) => {
-        if (typeof v === 'function' || v instanceof RegExp) {
-          return v.toString();
-        }
-        return v;
-      },
-      2,
-    );
+    const { default: stringify } = await import('json-stringify-safe');
+    // @ts-ignore Insert plugin name to config
+    config.plugins = config.plugins.map(plugin => ({
+      ...plugin,
+      __pluginName: plugin.constructor.name,
+    }));
+    ctx.body = stringify(config);
   });
 
   app.use(cors());

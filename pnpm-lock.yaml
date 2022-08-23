@@ -127,6 +127,7 @@ importers:
       '@types/resolve': ^1.20.2
       execa: ^6.1.0
       fs-extra: ^10.1.0
+      json-stringify-safe: ^5.0.1
       koa: ^2.13.4
       koa-router: ^11.0.1
       koa-static: ^5.0.0
@@ -140,6 +141,7 @@ importers:
       webpack: ^5.73.0
     dependencies:
       '@koa/cors': 3.3.0
+      json-stringify-safe: 5.0.1
       koa: 2.13.4
       koa-router: 11.0.1
       koa-static: 5.0.0
@@ -7180,6 +7182,10 @@ packages:
   /json-stable-stringify-without-jsonify/1.0.1:
     resolution: {integrity: sha512-Bdboy+l7tA3OGW6FjyFHWkP5LuByj1Tk33Ljyq0axyzdk9//JSi2u3fP1QSmd1KNwq6VOKYGlAu87CisVir6Pw==}
     dev: true
+
+  /json-stringify-safe/5.0.1:
+    resolution: {integrity: sha512-ZClg6AaYvamvYEE82d3Iyd3vSSIjQ+odgjaTzRuO3s7toCdFKczob2i0zCh7JE8kWn17yvAWhUVxvqGwUalsRA==}
+    dev: false
 
   /json5/1.0.1:
     resolution: {integrity: sha512-aKS4WQjPenRxiQsC93MNfjx+nbF4PAdYzmd/1JIj8HYzqfbu86beTuNgXDzPknWk0n0uARlyewZo4s++ES36Ow==}

@@ -1,6 +1,6 @@
 {
   "name": "@modern-js/inspector-webpack-plugin",
-  "version": "1.0.0-alpha.3",
+  "version": "1.0.0-alpha.4",
   "description": "Inspector for webpack",
   "main": "dist/index.js",
   "scripts": {
@@ -39,6 +39,7 @@
   ],
   "dependencies": {
     "@koa/cors": "^3.3.0",
+    "json-stringify-safe": "^5.0.1",
     "koa": "^2.13.4",
     "koa-router": "^11.0.1",
     "koa-static": "^5.0.0",
