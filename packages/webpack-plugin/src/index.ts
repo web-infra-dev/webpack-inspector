@@ -8,7 +8,7 @@ import {
   WebpackOptionsNormalized,
 } from 'webpack';
 import { loaderInfoMap, moduleInfoMap, moduleTransformInfoMap } from './loader';
-import { hookNormalModuleLoader, isCI, NAME, prependLoader } from './utils';
+import { hookNormalModuleLoader, isCI, NAME, prependLoader, readDirectory } from './utils';
 import { createServer } from './server';
 import { blue, bold } from 'picocolors';
 
@@ -128,10 +128,15 @@ export class InspectorWebpackPlugin implements WebpackPluginInstance {
       );
     });
     compiler.hooks.done.tapPromise(NAME, async () => {
-      // @ts-ignore
       if (this.#hasServerOpened) {
         return;
       }
+      const outputFiles = readDirectory(
+        compiler.outputPath,
+        compiler.outputFileSystem as typeof import('fs'),
+        compiler.outputPath,
+        compiler.options.output.publicPath as string
+      );
       const server = createServer({
         loaderInfoList: Object.values(loaderInfoMap),
         moduleList: {
@@ -140,6 +145,7 @@ export class InspectorWebpackPlugin implements WebpackPluginInstance {
         },
         moduleTransformInfoMap,
         config: webpackConfig,
+        outputFiles,
       });
       this.#hasServerOpened = true;
       server.listen(this.port, () => {

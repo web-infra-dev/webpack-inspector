@@ -7,7 +7,13 @@ import { join } from 'path';
 import { readFile } from 'fs-extra';
 
 export function createServer(data: ServerDataSource): Koa {
-  const { moduleList, moduleTransformInfoMap, loaderInfoList, config } = data;
+  const {
+    moduleList,
+    moduleTransformInfoMap,
+    loaderInfoList,
+    config,
+    outputFiles,
+  } = data;
   const app = new Koa();
   const router = new Router();
 
@@ -39,6 +45,11 @@ export function createServer(data: ServerDataSource): Koa {
       __pluginName: plugin.constructor.name,
     }));
     ctx.body = stringify(config);
+  });
+
+  router.get('/output', async (ctx, next) => {
+    await next();
+    ctx.body = outputFiles;
   });
 
   app.use(cors());

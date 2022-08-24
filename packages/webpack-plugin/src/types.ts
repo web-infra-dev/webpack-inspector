@@ -24,9 +24,19 @@ export interface LoaderInfo {
   invokeCount: number;
 }
 
+export interface File {
+  path: string;
+}
+
+export interface Directory {
+  path: string;
+  children: Array<File | Directory>;
+}
+
 export interface ServerDataSource {
   moduleList: ModuleList;
   moduleTransformInfoMap: Record<string, TransformItem[]>;
   loaderInfoList: LoaderInfo[];
   config: WebpackOptionsNormalized;
+  outputFiles: Directory;
 }

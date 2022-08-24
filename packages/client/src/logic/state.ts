@@ -9,11 +9,15 @@ export const listMode = useStorage<Mode>('vite-inspect-mode', 'config');
 export const lineWrapping = useStorage('vite-inspect-line-wrapping', false);
 export const MAX_MODULE_COUNT_FOR_GRAPH = 100;
 export const list = ref(await getModuleList());
-const modes = ['detailed', 'graph', 'config'];
+const modes = ['detailed', 'graph', 'config', 'output'];
 export function toggleMode() {
-  const getMode = () => modes[(modes.indexOf(listMode.value) + 1) % modes.length] as Mode;
+  const getMode = () =>
+    modes[(modes.indexOf(listMode.value) + 1) % modes.length] as Mode;
   const mode = getMode();
-  if (list.value.modules.length > MAX_MODULE_COUNT_FOR_GRAPH && mode === 'graph') {
+  if (
+    list.value.modules.length > MAX_MODULE_COUNT_FOR_GRAPH &&
+    mode === 'graph'
+  ) {
     // skip graph
     listMode.value = modes[(modes.indexOf('graph') + 1) % modes.length] as Mode;
   } else {

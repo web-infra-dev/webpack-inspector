@@ -22,6 +22,7 @@ declare module '@vue/runtime-core' {
     ModuleId: typeof import('./components/ModuleId.vue')['default']
     ModuleList: typeof import('./components/ModuleList.vue')['default']
     NavBar: typeof import('./components/NavBar.vue')['default']
+    OutputList: typeof import('./components/OutputList.vue')['default']
     PluginName: typeof import('./components/PluginName.vue')['default']
     RawConfig: typeof import('./components/RawConfig.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

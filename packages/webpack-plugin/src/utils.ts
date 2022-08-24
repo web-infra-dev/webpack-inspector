@@ -1,5 +1,8 @@
 import Module from 'module';
 import { Compilation, RuleSetRule, RuleSetUseItem } from 'webpack';
+import fs from 'fs';
+import path from 'path';
+import { Directory } from './types';
 
 export const NAME = 'inspect-webpack-plugin';
 
@@ -121,4 +124,34 @@ export function hookNormalModuleLoader(
   // for webpack 4
   compilation.hooks.normalModuleLoader.tap(pluginName, callback);
   // }
+}
+
+export function readDirectory(
+  dir: string,
+  fileSystem: typeof fs,
+  rootPath: string,
+  publicPath: string,
+): Directory {
+  const directory: Directory = {
+    path: dir === rootPath ? rootPath : path.relative(rootPath, dir),
+    children: [],
+  };
+
+  const items = fileSystem.readdirSync(dir);
+
+  items.forEach(item => {
+    const absItemPath = path.join(dir, item);
+    const relativeItemPath = path.relative(rootPath, absItemPath);
+    if (fileSystem.statSync(absItemPath).isDirectory()) {
+      directory.children.push(
+        readDirectory(absItemPath, fileSystem, rootPath, publicPath),
+      );
+    } else {
+      directory.children.push({
+        path: path.join(publicPath, relativeItemPath),
+      });
+    }
+  });
+
+  return directory;
 }

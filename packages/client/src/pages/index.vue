@@ -21,6 +21,7 @@ onMounted(() => {
       <carbon:list-boxes v-if="listMode === 'detailed'" />
       <carbon:network-4 v-else-if="listMode === 'graph'" />
       <carbon:calendar-settings v-else-if="listMode === 'config'" />
+      <carbon:text-wrap v-else-if="listMode === 'output'" />
     </button>
     <!-- <a
       class="icon-btn text-lg"
@@ -34,6 +35,7 @@ onMounted(() => {
       <Graph v-if="listMode === 'graph'" :modules="searchResults" />
       <ModuleList v-else-if="listMode === 'detailed'" :modules="searchResults" />
       <RawConfig v-else-if="listMode === 'config'" />
+      <OutputList v-else-if="listMode === 'output'" />
     </KeepAlive>
   </Container>
   <div
