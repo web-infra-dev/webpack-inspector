@@ -8,6 +8,8 @@ export const NAME = 'inspect-webpack-plugin';
 
 export const isCI = (): boolean => Boolean(process.env.BUILD_VERION);
 
+export const isProd = (): boolean => process.env.NODE_ENV === 'production';
+
 const originRequire = Module.prototype.require;
 
 export function wrapLoaderRequire(
@@ -131,9 +133,15 @@ export function readDirectory(
   fileSystem: typeof fs,
   rootPath: string,
   publicPath: string,
+  fileToIsAsyncChunkMap: Map<string, boolean>,
 ): Directory {
   const directory: Directory = {
-    path: dir === rootPath ? rootPath : path.relative(rootPath, dir),
+    path:
+      dir === rootPath
+        ? isProd()
+          ? rootPath
+          : publicPath
+        : path.relative(rootPath, dir),
     children: [],
   };
 
@@ -141,14 +149,22 @@ export function readDirectory(
 
   items.forEach(item => {
     const absItemPath = path.join(dir, item);
-    const relativeItemPath = path.relative(rootPath, absItemPath);
+    const relativeItemPath = path.relative(dir, absItemPath);
     if (fileSystem.statSync(absItemPath).isDirectory()) {
       directory.children.push(
-        readDirectory(absItemPath, fileSystem, rootPath, publicPath),
+        readDirectory(
+          absItemPath,
+          fileSystem,
+          rootPath,
+          publicPath,
+          fileToIsAsyncChunkMap,
+        ),
       );
     } else {
+      debugger;
       directory.children.push({
-        path: path.join(publicPath, relativeItemPath),
+        path: relativeItemPath,
+        async: fileToIsAsyncChunkMap.get(relativeItemPath),
       });
     }
   });

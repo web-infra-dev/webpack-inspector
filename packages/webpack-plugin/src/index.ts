@@ -127,16 +127,25 @@ export class InspectorWebpackPlugin implements WebpackPluginInstance {
         },
       );
     });
-    compiler.hooks.done.tapPromise(NAME, async () => {
+    compiler.hooks.done.tapPromise(NAME, async (stats) => {
       if (this.#hasServerOpened) {
         return;
       }
+      const fileToIsAsyncChunkMap = new Map<string, boolean>();
+      stats.compilation.chunks.forEach((chunk) => {
+        chunk.files.forEach((file) => {
+          const fileName = file.split('/').pop();
+          fileToIsAsyncChunkMap.set(fileName, !chunk.canBeInitial());
+        });
+      });
       const outputFiles = readDirectory(
         compiler.outputPath,
         compiler.outputFileSystem as typeof import('fs'),
         compiler.outputPath,
-        compiler.options.output.publicPath as string
+        compiler.options.output.publicPath as string,
+        fileToIsAsyncChunkMap
       );
+      debugger
       const server = createServer({
         loaderInfoList: Object.values(loaderInfoMap),
         moduleList: {
@@ -146,7 +155,9 @@ export class InspectorWebpackPlugin implements WebpackPluginInstance {
         moduleTransformInfoMap,
         config: webpackConfig,
         outputFiles,
+        fs: compiler.outputFileSystem as typeof import('fs'),
       });
+
       this.#hasServerOpened = true;
       server.listen(this.port, () => {
         const banner = blue(bold('【Webpack Inspector】'));

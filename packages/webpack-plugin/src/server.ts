@@ -5,6 +5,9 @@ import cors from '@koa/cors';
 import serve from 'koa-static';
 import { join } from 'path';
 import { readFile } from 'fs-extra';
+import stringify from 'json-stringify-safe';
+
+const BLACK_KEY_LIST = ['coraCompiler', 'stats'];
 
 export function createServer(data: ServerDataSource): Koa {
   const {
@@ -13,9 +16,26 @@ export function createServer(data: ServerDataSource): Koa {
     loaderInfoList,
     config,
     outputFiles,
+    fs,
   } = data;
   const app = new Koa();
   const router = new Router();
+  // @ts-ignore Attach plugin name.
+  config.plugins = config.plugins.map(plugin => ({
+    ...plugin,
+    __pluginName: plugin.constructor.name,
+  }));
+  const serializer = stringify.getSerialize();
+  const serializedConfig = stringify(config, (key, value) => {
+    if (BLACK_KEY_LIST.includes(key)) {
+      // To avoid huge performance impact, we don't serialize some keys.
+      return undefined;
+    }
+    if (value instanceof RegExp) {
+      return value.source;
+    }
+    return serializer(key, value);
+  });
 
   router.get('/module-list', async (ctx, next) => {
     await next();
@@ -38,24 +58,17 @@ export function createServer(data: ServerDataSource): Koa {
 
   router.get('/config', async (ctx, next) => {
     await next();
-    const { default: stringify } = await import('json-stringify-safe');
-    // @ts-ignore Insert plugin name to config
-    config.plugins = config.plugins.map(plugin => ({
-      ...plugin,
-      __pluginName: plugin.constructor.name,
-    }));
-    const serializer = stringify.getSerialize();
-    ctx.body = stringify(config, (_, value) => {
-      if (value instanceof RegExp) {
-        return value.source;
-      }
-      return serializer(_, value);
-    });
+    ctx.body = serializedConfig;
   });
 
   router.get('/output', async (ctx, next) => {
     await next();
     ctx.body = outputFiles;
+  });
+
+  router.get('/chunk', async (ctx, next) => {
+    await next();
+    const fileName = ctx.query.file;
   });
 
   app.use(cors());

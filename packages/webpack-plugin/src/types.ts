@@ -1,4 +1,5 @@
 import { WebpackOptionsNormalized } from 'webpack';
+import fs from 'fs';
 
 export interface TransformItem {
   name: string;
@@ -26,6 +27,7 @@ export interface LoaderInfo {
 
 export interface File {
   path: string;
+  async: boolean;
 }
 
 export interface Directory {
@@ -39,4 +41,5 @@ export interface ServerDataSource {
   loaderInfoList: LoaderInfo[];
   config: WebpackOptionsNormalized;
   outputFiles: Directory;
+  fs: typeof fs;
 }
