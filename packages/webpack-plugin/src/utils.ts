@@ -161,7 +161,6 @@ export function readDirectory(
         ),
       );
     } else {
-      debugger;
       directory.children.push({
         path: relativeItemPath,
         async: fileToIsAsyncChunkMap.get(relativeItemPath),
