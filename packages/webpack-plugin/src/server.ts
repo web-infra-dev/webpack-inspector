@@ -44,7 +44,13 @@ export function createServer(data: ServerDataSource): Koa {
       ...plugin,
       __pluginName: plugin.constructor.name,
     }));
-    ctx.body = stringify(config);
+    const serializer = stringify.getSerialize();
+    ctx.body = stringify(config, (_, value) => {
+      if (value instanceof RegExp) {
+        return value.source;
+      }
+      return serializer(_, value);
+    });
   });
 
   router.get('/output', async (ctx, next) => {
