@@ -1,20 +1,17 @@
 <script setup lang="ts">
 const props = defineProps<{
-  name: string
-  hide?: boolean
-}>()
+  name: string;
+  hide?: boolean;
+}>();
 
-const starts = [
-  '__load__',
-]
+const starts = ['__load__'];
 
 const parts = computed(() => {
   for (const s of starts) {
-    if (props.name.startsWith(s))
-      return [s, props.name.slice(s.length)]
+    if (props.name.startsWith(s)) return [s, props.name.slice(s.length)];
   }
-  return ['', props.name]
-})
+  return ['', props.name];
+});
 </script>
 
 <template>

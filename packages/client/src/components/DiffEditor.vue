@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { onMounted, ref, toRefs, watchEffect } from "vue";
-import { guessMode } from "../logic/utils";
-import { monaco } from "../logic/customMonaco";
+import { onMounted, ref, toRefs, watchEffect } from 'vue';
+import { guessMode } from '../logic/utils';
+import { monaco } from '../logic/customMonaco';
 const props = defineProps<{ from: string; to: string }>();
 const { from, to } = toRefs(props);
 
@@ -14,12 +14,18 @@ onMounted(() => {
   }
   watchEffect(() => {
     diffEditor?.dispose();
-    var originalModel = monaco.editor.createModel(from.value, guessMode(from.value));
-    var modifiedModel = monaco.editor.createModel(to.value, guessMode(to.value));
+    const originalModel = monaco.editor.createModel(
+      from.value,
+      guessMode(from.value),
+    );
+    const modifiedModel = monaco.editor.createModel(
+      to.value,
+      guessMode(to.value),
+    );
 
     diffEditor = monaco.editor.createDiffEditor(diffContainerEl.value!, {
       fontSize: 15,
-      fontFamily: "Consolas",
+      fontFamily: 'Consolas',
     });
     diffEditor.setModel({
       original: originalModel,

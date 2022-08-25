@@ -7,7 +7,12 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     Badge: typeof import('./components/Badge.vue')['default']
     'Carbon:calendarSettings': typeof import('~icons/carbon/calendar-settings')['default']
+    'Carbon:caretBottom': typeof import('~icons/carbon/caret-bottom')['default']
+    'Carbon:caretDown': typeof import('~icons/carbon/caret-down')['default']
+    'Carbon:caretRight': typeof import('~icons/carbon/caret-right')['default']
+    'Carbon:code': typeof import('~icons/carbon/code')['default']
     'Carbon:compare': typeof import('~icons/carbon/compare')['default']
+    'Carbon:fileStorage': typeof import('~icons/carbon/file-storage')['default']
     'Carbon:listBoxes': typeof import('~icons/carbon/list-boxes')['default']
     'Carbon:network4': typeof import('~icons/carbon/network4')['default']
     'Carbon:textWrap': typeof import('~icons/carbon/text-wrap')['default']
@@ -28,6 +33,7 @@ declare module '@vue/runtime-core' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SearchBox: typeof import('./components/SearchBox.vue')['default']
+    TreeBrowser: typeof import('./components/TreeBrowser.vue')['default']
   }
 }
 

@@ -44,6 +44,7 @@
     "@antfu/ni": "^0.16.3",
     "@antfu/utils": "^0.5.2",
     "@iconify/json": "^2.1.69",
+    "@modern-js/eslint-config": "^1.2.6",
     "@types/codemirror": "^5.60.5",
     "@types/debug": "^4.1.7",
     "@types/diff-match-patch": "^1.0.32",
