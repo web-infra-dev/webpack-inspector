@@ -1,5 +1,5 @@
 export const BASE_URL =
-  process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3333';
+  process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3004';
 
 export async function getModuleList() {
   const res = await fetch(`${BASE_URL}/module-list`);
@@ -24,4 +24,9 @@ export async function getWebpackConfig() {
 export async function getOutputFiles() {
   const res = await fetch(`${BASE_URL}/output`);
   return res.json();
+}
+
+export async function getChunk(file: string) {
+  const res = await fetch(`${BASE_URL}/chunk?file=${file}`);
+  return res.text();
 }

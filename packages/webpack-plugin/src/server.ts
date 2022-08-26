@@ -68,7 +68,8 @@ export function createServer(data: ServerDataSource): Koa {
 
   router.get('/chunk', async (ctx, next) => {
     await next();
-    const fileName = ctx.query.file;
+    const fileName = ctx.query.file as string;
+    ctx.body = fs.readFileSync(join(config.output.path, fileName), 'utf-8');
   });
 
   app.use(cors());

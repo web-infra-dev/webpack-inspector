@@ -26,8 +26,10 @@ export interface LoaderInfo {
 }
 
 export interface File {
-  path: string;
+  name: string;
   async: boolean;
+  path: string;
+  size: number;
 }
 
 export interface Directory {

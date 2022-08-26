@@ -135,13 +135,9 @@ export function readDirectory(
   publicPath: string,
   fileToIsAsyncChunkMap: Map<string, boolean>,
 ): Directory {
+  const isRoot = dir === rootPath;
   const directory: Directory = {
-    path:
-      dir === rootPath
-        ? isProd()
-          ? rootPath
-          : publicPath
-        : path.relative(rootPath, dir),
+    path: isRoot ? rootPath : path.relative(rootPath, dir),
     children: [],
   };
 
@@ -149,7 +145,7 @@ export function readDirectory(
 
   items.forEach(item => {
     const absItemPath = path.join(dir, item);
-    const relativeItemPath = path.relative(dir, absItemPath);
+    const filename = path.relative(dir, absItemPath);
     if (fileSystem.statSync(absItemPath).isDirectory()) {
       directory.children.push(
         readDirectory(
@@ -162,8 +158,10 @@ export function readDirectory(
       );
     } else {
       directory.children.push({
-        path: relativeItemPath,
-        async: fileToIsAsyncChunkMap.get(relativeItemPath),
+        name: filename,
+        path: path.relative(rootPath, absItemPath),
+        async: fileToIsAsyncChunkMap.get(filename),
+        size: fileSystem.statSync(absItemPath).size,
       });
     }
   });

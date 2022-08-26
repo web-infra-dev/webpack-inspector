@@ -26,7 +26,9 @@ export interface PluginMetricInfo {
 
 export interface File {
   path: string;
+  name: string;
   async: boolean;
+  size: number;
 }
 
 export interface Directory {

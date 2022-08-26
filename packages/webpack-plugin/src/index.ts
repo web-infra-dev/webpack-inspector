@@ -145,7 +145,6 @@ export class InspectorWebpackPlugin implements WebpackPluginInstance {
         compiler.options.output.publicPath as string,
         fileToIsAsyncChunkMap
       );
-      debugger
       const server = createServer({
         loaderInfoList: Object.values(loaderInfoMap),
         moduleList: {
