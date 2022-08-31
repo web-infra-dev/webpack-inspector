@@ -141,6 +141,10 @@ export function readDirectory(
     children: [],
   };
 
+  if (!fileSystem.readdirSync) {
+    return directory;
+  }
+
   const items = fileSystem.readdirSync(dir);
 
   items.forEach(item => {
