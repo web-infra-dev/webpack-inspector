@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { Ref } from "vue";
 import { useRouteQuery } from "@vueuse/router";
 import { msToTime } from "../../logic/utils";
 import { enableDiff, lineWrapping, onRefetch } from "../../logic";

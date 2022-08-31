@@ -26,7 +26,7 @@ const size = computed(() => {
   const computeDirectorySize = (dir) => {
     return dir.children.reduce((acc, child) => {
       // Judge map file
-      if (child.name && child.name.endsWith('.map')) {
+      if (child.name && child.name.endsWith(".map")) {
         return acc;
       }
       if (child.size) {
@@ -34,7 +34,7 @@ const size = computed(() => {
       }
       return acc + computeDirectorySize(child);
     }, 0);
-  }
+  };
   return computeDirectorySize(props.data);
 });
 </script>
@@ -52,12 +52,8 @@ const size = computed(() => {
         <carbon:caret-right v-else />
       </span>
       <carbon:file-storage v-else />
-      <span
-        class="ml-1 cursor-pointer hover:bg-light-blue-400/10"
-        :class="tagColor"
-        >{{ isDirectory ? data.path : data.name }} ({{
-          (size / 1024).toFixed(2)
-        }}
+      <span class="ml-1 cursor-pointer hover:bg-light-blue-400/10" :class="tagColor"
+        >{{ isDirectory ? data.path : data.name }} ({{ (size / 1024).toFixed(2) }}
         KB)
       </span>
     </div>
@@ -68,7 +64,7 @@ const size = computed(() => {
         :data="child"
         :depth="currentDepth + 1"
         :expanded="isExpanded"
-        @itemClick="data => emit('itemClick', data)"
+        @itemClick="(data) => emit('itemClick', data)"
       />
     </div>
   </div>

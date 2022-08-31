@@ -2,5 +2,11 @@
   "rules": {
     "no-undef": "off",
     "import/named": "off"
+  },
+  "globals": {
+    "defineProps": "readonly",
+    "defineEmits": "readonly",
+    "defineExpose": "readonly",
+    "withDefaults": "readonly"
   }
 }

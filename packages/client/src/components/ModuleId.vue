@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-import { list, root } from '../logic'
+import { computed, defineProps } from "vue";
+import { list, root } from "../logic";
 
-const props = defineProps<{ id?: string }>()
+const props = defineProps<{ id?: string }>();
 
-const isVirtual = computed(() => list.data?.modules.find(i => i.id === props.id)?.virtual)
+const isVirtual = computed(
+  () => list.data?.modules.find((i) => i.id === props.id)?.virtual
+);
 </script>
 
 <template>
@@ -15,10 +17,6 @@ const isVirtual = computed(() => list.data?.modules.find(i => i.id === props.id)
     </template>
     <span v-else>{{ id }}</span>
 
-    <Badge
-      v-if="isVirtual"
-      class="bg-teal-400/10 text-teal-400"
-      v-text="'virtual'"
-    />
+    <Badge v-if="isVirtual" class="bg-teal-400/10 text-teal-400" v-text="'virtual'" />
   </div>
 </template>

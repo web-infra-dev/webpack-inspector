@@ -8,7 +8,6 @@ import JsonViewer from 'vue3-json-viewer';
 import '@unocss/reset/tailwind.css';
 import 'vue-awesome-paginate/dist/style.css';
 import './styles/main.css';
-import './styles/cm.css';
 import 'uno.css';
 
 const app = createApp(App);

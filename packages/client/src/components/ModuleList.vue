@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { start } from 'repl';
+import { defineProps } from 'vue';
 import { listMode, searchText } from '../logic';
 
 const props = defineProps<{

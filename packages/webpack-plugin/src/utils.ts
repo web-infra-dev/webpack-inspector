@@ -137,7 +137,7 @@ export function readDirectory(
 ): Directory {
   const isRoot = dir === rootPath;
   const directory: Directory = {
-    path: isRoot ? rootPath : path.relative(rootPath, dir),
+    path: isRoot ? rootPath : path.basename(dir),
     children: [],
   };
 
