@@ -27,9 +27,9 @@ export class Router {
       const cleanedUrl = cleanUrl(url);
       const handler = this.#handlersMap[method][cleanedUrl];
       if (handler) {
-        await handler(req, res, next);
+        return handler(req, res, next);
       } else {
-        await next();
+        return next();
       }
     }
   }

@@ -17,7 +17,7 @@ export function createServer(data: ServerDataSource): http.Server {
   // Fallback to index.html
   middlewares.use(async (_req, res, next) => {
     await next();
-    if (!res.writableEnded) {
+    if (res.statusCode === 404) {
       res.setHeader('Content-Type', 'text/html');
       res.end(await readFile(resolve('client/index.html'), 'utf-8'));
     }

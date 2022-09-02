@@ -42,7 +42,7 @@ export function apiMiddleware(
     res.end(stringify(body));
   };
 
-  router.get('/module-list', async (req, res, next) => {
+  router.get('/module-list', async (_req, res, next) => {
     await next();
     sendResponse(moduleList, res);
   });
