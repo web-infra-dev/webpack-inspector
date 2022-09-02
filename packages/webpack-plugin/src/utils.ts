@@ -10,6 +10,14 @@ export const isCI = (): boolean => Boolean(process.env.BUILD_VERION);
 
 export const isProd = (): boolean => process.env.NODE_ENV === 'production';
 
+export const resolve = (p: string) => path.resolve(__dirname, '..', p);
+
+export const queryRE = /\?.*$/s;
+export const hashRE = /#.*$/s;
+
+export const cleanUrl = (url: string): string =>
+  url.replace(hashRE, '').replace(queryRE, '');
+
 const originRequire = Module.prototype.require;
 
 export function wrapLoaderRequire(

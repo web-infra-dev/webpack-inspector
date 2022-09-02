@@ -16,6 +16,7 @@
   "author": "yangxingyuan",
   "license": "MIT",
   "devDependencies": {
+    "@types/connect": "^3.4.35",
     "@types/debug": "^4.1.7",
     "@types/express": "^4.17.13",
     "@types/jest": "^28.1.4",
@@ -38,11 +39,9 @@
     "client"
   ],
   "dependencies": {
-    "@koa/cors": "^3.3.0",
+    "connect": "^3.7.0",
     "json-stringify-safe": "^5.0.1",
-    "koa": "^2.13.4",
-    "koa-router": "^11.0.1",
-    "koa-static": "^5.0.0",
-    "picocolors": "^1.0.0"
+    "picocolors": "^1.0.0",
+    "sirv": "^2.0.2"
   }
 }
