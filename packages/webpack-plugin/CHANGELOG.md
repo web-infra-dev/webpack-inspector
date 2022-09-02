@@ -1,5 +1,11 @@
 # @modern-js/inspector-webpack-plugin
 
+## 1.0.3
+
+### Patch Changes
+
+- Use tsup to bundle package, including all dependencies.
+
 ## 1.0.2
 
 ### Patch Changes
