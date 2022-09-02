@@ -2,6 +2,8 @@
 
 ## 1.0.2
 
+### Patch Changes
+
 - Expose plugin options type.
 
 ## 1.0.1
