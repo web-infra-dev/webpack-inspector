@@ -1,4 +1,4 @@
-# build-tool-inspector
+# Webpack Inspector
 
 ## Introduction
 
