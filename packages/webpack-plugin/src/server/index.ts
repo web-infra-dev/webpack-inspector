@@ -11,6 +11,7 @@ import { blue, bold } from 'picocolors';
 
 export function createServer(data: ServerDataSource): http.Server {
   const middlewares = connect();
+  middlewares.use(cors());
   middlewares.use(apiMiddleware(data));
   middlewares.use(sirv(resolve('client'), { dev: true, etag: true }));
   // Fallback to index.html
@@ -21,7 +22,6 @@ export function createServer(data: ServerDataSource): http.Server {
       res.end(await readFile(resolve('client/index.html'), 'utf-8'));
     }
   });
-  middlewares.use(cors());
   const app = http.createServer(middlewares);
 
   return app;
