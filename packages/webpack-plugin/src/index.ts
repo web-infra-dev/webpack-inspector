@@ -9,8 +9,7 @@ import {
 } from 'webpack';
 import { loaderInfoMap, moduleInfoMap, moduleTransformInfoMap } from './loader';
 import { hookNormalModuleLoader, isCI, NAME, prependLoader, readDirectory } from './utils';
-import { createServer } from './server';
-import { blue, bold } from 'picocolors';
+import { createServer, startHttpServer } from './server';
 
 export const INSPECT_PLUGIN = 'INSPECT_PLUGIN';
 
@@ -158,10 +157,7 @@ export class InspectorWebpackPlugin implements WebpackPluginInstance {
       });
 
       this.#hasServerOpened = true;
-      server.listen(this.port, () => {
-        const banner = blue(bold('【Webpack Inspector】'));
-        console.log(`${banner}🔥 started at http://localhost:${this.port}`);
-      });
+      await startHttpServer(server, this.port);
     });
   }
 }

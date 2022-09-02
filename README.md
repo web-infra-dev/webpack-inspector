@@ -22,6 +22,8 @@ Webpack dev tools to make performance analysis, error investigation and loader d
 
 ![devtool-5.png](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/328cfdff36034cd1bbf1e14c40a30772~tplv-k3u1fbpfcp-watermark.image?)
 
+5. View the webpack output chunk.
+![devtool-6.png](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/000a454c179d451fb8156ae8f9bcc434~tplv-k3u1fbpfcp-watermark.image?)
 ## Usage
 
 ### 1. Install
