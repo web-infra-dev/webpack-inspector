@@ -15,7 +15,7 @@ export const INSPECT_PLUGIN = 'INSPECT_PLUGIN';
 
 const DEFAULT_PROT = 3333;
 
-interface PluginOptions {
+export interface InspectorPluginOptions {
   port?: number;
   ignorePattern?: RegExp | null;
 }
@@ -24,7 +24,7 @@ export class InspectorWebpackPlugin implements WebpackPluginInstance {
   port: number;
   ignorePattern: RegExp | null;
   #hasServerOpened = false;
-  constructor(options: PluginOptions = {}) {
+  constructor(options: InspectorPluginOptions = {}) {
     this.port = options.port || DEFAULT_PROT;
     this.ignorePattern = options.ignorePattern || null;
   }
