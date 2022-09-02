@@ -40,6 +40,7 @@
   ],
   "dependencies": {
     "connect": "^3.7.0",
+    "cors": "^2.8.5",
     "json-stringify-safe": "^5.0.1",
     "picocolors": "^1.0.0",
     "sirv": "^2.0.2"

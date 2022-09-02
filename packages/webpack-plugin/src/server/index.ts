@@ -6,6 +6,7 @@ import connect from 'connect';
 import { apiMiddleware } from './api';
 import sirv from 'sirv';
 import { resolve } from '@/utils';
+import cors from 'cors';
 
 export function createServer(data: ServerDataSource): http.Server {
   const middlewares = connect();
@@ -19,6 +20,7 @@ export function createServer(data: ServerDataSource): http.Server {
       res.end(await readFile(resolve('client/index.html'), 'utf-8'));
     }
   });
+  middlewares.use(cors());
   const app = http.createServer(middlewares);
   return app;
 }
