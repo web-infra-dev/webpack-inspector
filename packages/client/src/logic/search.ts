@@ -4,7 +4,10 @@ import Fuse from 'fuse.js';
 import { list } from './state';
 
 export const searchText = ref('');
-export const includeNodeModules = useStorage('vite-inspect-include-node-modules', false);
+export const includeNodeModules = useStorage(
+  'vite-inspect-include-node-modules',
+  false,
+);
 export const includeVirtual = useStorage('vite-inspect-include-virtual', false);
 let isSearching = false;
 
@@ -26,12 +29,7 @@ export const searchResults = computed(() => {
     return data;
   }
 
-  const fuse = new Fuse(data, {
-    shouldSort: true,
-    keys: ['id', 'loaders'],
-  });
-
-  const result = fuse.search(searchText.value).map(i => i.item);
+  const result = data.filter(item => item.id.includes(searchText.value));
   isSearching = false;
   return result;
 });

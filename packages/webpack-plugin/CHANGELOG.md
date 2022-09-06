@@ -1,5 +1,11 @@
 # @modern-js/inspector-webpack-plugin
 
+## 1.0.4
+
+### Patch Changes
+
+- Optimize search algorithm.
+
 ## 1.0.3
 
 ### Patch Changes
