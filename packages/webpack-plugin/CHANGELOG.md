@@ -1,5 +1,9 @@
 # @modern-js/inspector-webpack-plugin
 
+## 1.0.5
+
+- Fix the tsc/swc loader output cannot work
+
 ## 1.0.4
 
 ### Patch Changes
