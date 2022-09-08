@@ -132,9 +132,12 @@ export const pitch: PitchLoaderDefinitionFunction = function(): void {
         };
 
       if (typeof loaderModule.default === 'function') {
-        loaderModule.default = wrapLoaderFunction(
-          loaderModule.default,
-        ) as LoaderDefinitionFunction;
+        return {
+          ...loaderModule,
+          default: wrapLoaderFunction(
+            loaderModule.default,
+          ) as LoaderDefinitionFunction,
+        };
       }
 
       if (typeof loaderModule === 'function') {
