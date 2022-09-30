@@ -4,7 +4,7 @@
   "description": "Inspector for webpack",
   "main": "index.js",
   "scripts": {
-    "build": "pnpm run build --filter webpack-devtool-ui --filter @modern-js/inspector-webpack-plugin",
+    "build": "pnpm --filter webpack-devtool-ui --filter @modern-js/inspector-webpack-plugin build",
     "changeset": "changeset",
     "version": "changeset version",
     "test": "pnpm run test --filter '*webpack-plugin*'",
