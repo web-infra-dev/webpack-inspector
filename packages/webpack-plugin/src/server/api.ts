@@ -19,11 +19,8 @@ export function apiMiddleware(
     outputFiles,
     fs,
   } = data;
-  // @ts-ignore Attach plugin name.
-  config.plugins = config.plugins.map(plugin => ({
-    ...plugin,
-    __pluginName: plugin.constructor.name,
-  }));
+  // For perforamnce, we don't serialize the plugin object, which is so huge that it will cause performance impact.
+  delete config.plugins;
   const serializer = stringify.getSerialize();
   const serializedConfig = stringify(config, (key, value) => {
     if (BLACK_KEY_LIST.includes(key)) {

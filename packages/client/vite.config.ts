@@ -42,6 +42,7 @@ export default defineConfig({
     },
   },
   build: {
+    assetsInlineLimit: Infinity,
     target: 'esnext',
     outDir: resolve(__dirname, '../webpack-plugin/client'),
     minify: true,

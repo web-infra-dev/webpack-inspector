@@ -1,6 +1,6 @@
 {
   "name": "@modern-js/inspector-webpack-plugin",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Inspector for webpack",
   "main": "dist/index.js",
   "scripts": {
