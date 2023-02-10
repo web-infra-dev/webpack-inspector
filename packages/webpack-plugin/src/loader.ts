@@ -1,3 +1,4 @@
+import { yellow } from 'picocolors';
 import {
   PitchLoaderDefinitionFunction,
   LoaderModule,
@@ -119,13 +120,23 @@ export const pitch: PitchLoaderDefinitionFunction = function(): void {
 
           const ret = func.apply(proxyThis, args);
 
-          if (ret) {
-            addTransformItem(module, {
-              name: loaderName,
-              result: ret,
-              start: startTime,
-              end: Date.now(),
+          const check = (value: any, isPromise: boolean) => {
+            if (checkLoaderReturn(value, loaderName, isPromise)) {
+              addTransformItem(module, {
+                name: loaderName,
+                result: value,
+                start: startTime,
+                end: Date.now(),
+              });
+            }
+          };
+
+          if (ret && typeof ret === 'object' && 'then' in ret) {
+            ret.then(res => {
+              check(res, true);
             });
+          } else if (ret) {
+            check(ret, false);
           }
 
           return ret;
@@ -148,3 +159,25 @@ export const pitch: PitchLoaderDefinitionFunction = function(): void {
     },
   );
 };
+
+function checkLoaderReturn(
+  input: any,
+  loaderName: string,
+  isPromise: boolean,
+): input is string {
+  if (typeof input !== 'string') {
+    if (input !== undefined) {
+      console.log(
+        `${yellow('[Warn]: ')} ${loaderName} returned a ${
+          isPromise ? 'Promise which is resolved to' : 'value of'
+        } type ${yellow(
+          `${typeof input}\nLoader can only return type of \`string\` or \`Promise<string>\`\nIn: ${module}]\n`,
+        )}`,
+      );
+    }
+
+    return false;
+  } else {
+    return true;
+  }
+}
